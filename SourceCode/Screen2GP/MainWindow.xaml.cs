@@ -39,7 +39,7 @@ namespace Screen2GP
             if (ReadInfo()) HttpRequest(0, false);
             else
             {
-                this.WindowState = WindowState.Normal;
+                Window_GoShow();
                 BeginFade();
             };
             textbox1.IsEnabled = false;
@@ -60,7 +60,7 @@ namespace Screen2GP
 
         private void notifyIcon_Click(object sender, EventArgs args)
         {
-            this.WindowState = WindowState.Normal;
+            Window_GoShow();
         }
 
         private void notifyIcon_MouseMove(object sender, EventArgs args)
@@ -167,9 +167,6 @@ namespace Screen2GP
         {
             if (client.uploading == false && user.email!="" && grid11.Visibility==Visibility.Visible )
             {
-                client.uploading = true;
-                label1.Opacity = 1;
-                button1.IsEnabled = false;
                 try
                 {
                     PrintScreen();
@@ -188,8 +185,6 @@ namespace Screen2GP
 
         private void PrintScreen()
         {
-            label1.Content = "Uploading...";
-
             Bitmap printscreen = new Bitmap((int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight);
             Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image);
             graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size);
@@ -205,8 +200,12 @@ namespace Screen2GP
             bi.StreamSource = ms;
             bi.EndInit();
             imagebox1.Source = bi;
-            
-            this.WindowState = WindowState.Normal;
+
+            client.uploading = true;
+            label1.Opacity = 1;
+            button1.IsEnabled = false;
+            label1.Content = "Uploading...";
+            Window_GoShow();
 
             ThreadDelegate backWorkDel = new ThreadDelegate(UploadPhoto);
             backWorkDel.BeginInvoke(null, null);
@@ -440,25 +439,23 @@ namespace Screen2GP
             BeginFade();
         }
 
-        private void Window_StateChanged(object sender, EventArgs e)
+        private void Window_GoShow()
         {
-            if (this.WindowState == WindowState.Normal)
-            {
-                DoubleAnimation animation = new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 200)));
-                this.BeginAnimation(OpacityProperty, animation);
-            }
+            this.Show();
+            DoubleAnimation animation = new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 200)));
+            this.BeginAnimation(OpacityProperty, animation);
         }
 
         private void Window_GoHind()
         {
             DoubleAnimation animation = new DoubleAnimation(1, 0, new Duration(new TimeSpan(0, 0, 0, 0, 200)));
-            animation.Completed += Window_Minimize;
+            animation.Completed += Window_Hide;
             this.BeginAnimation(OpacityProperty, animation);
         }
 
-        private void Window_Minimize(object sender, EventArgs args)
+        private void Window_Hide(object sender, EventArgs args)
         {
-            this.WindowState = WindowState.Minimized;
+            this.Hide();
         }
 
         private void Label4_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
