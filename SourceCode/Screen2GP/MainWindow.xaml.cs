@@ -34,7 +34,8 @@ namespace Screen2GP
         {
             InitializeComponent();
             InitnotifyIcon();
-            client.url = "https://plus.google.com/app/basic/login";
+            //client.url = "https://plus.google.com/app/basic/login";
+            client.url = "https://accounts.google.com/ServiceLogin";
             if (ReadInfo()) HttpRequest(0, false);
             else
             {
@@ -177,7 +178,6 @@ namespace Screen2GP
                 {
                     label1.Content = "Upload failed";
                 }
-                this.WindowState = WindowState.Normal;
                 if (this.Height == 210)
                 {
                     DoubleAnimation myAnimation = new DoubleAnimation(210, 470, new Duration(new TimeSpan(0, 0, 0, 0, 300)));
@@ -193,7 +193,7 @@ namespace Screen2GP
             Bitmap printscreen = new Bitmap((int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight);
             Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image);
             graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size);
-            var fileStream = new FileStream("screenshot/temp.png", FileMode.Create);
+            var fileStream = new FileStream("temp.png", FileMode.Create);
             printscreen.Save(fileStream, ImageFormat.Png);
             fileStream.Close();
 
@@ -205,6 +205,8 @@ namespace Screen2GP
             bi.StreamSource = ms;
             bi.EndInit();
             imagebox1.Source = bi;
+            
+            this.WindowState = WindowState.Normal;
 
             ThreadDelegate backWorkDel = new ThreadDelegate(UploadPhoto);
             backWorkDel.BeginInvoke(null, null);
@@ -217,7 +219,7 @@ namespace Screen2GP
             {
                 PicasaService service = new PicasaService("picasaupload");
                 service.setUserCredentials(user.email, user.password);
-                var file = "screenshot/temp.png";
+                var file = "temp.png";
                 var fileStream = new FileStream(file, FileMode.Open);
                 PicasaEntry entry = (PicasaEntry)service.Insert(new Uri("https://picasaweb.google.com/data/feed/api/user/default/albumid/default"), fileStream, "image/jpeg", file);
                 fileStream.Close();
@@ -337,6 +339,7 @@ namespace Screen2GP
                 {
                     client.pointer = pointer;
                     HttpResponseMessage response = await client.client.GetAsync("https://m.google.com/app/plus/?v=compose&group=m1c&hideloc=1");
+                    //HttpResponseMessage response = await client.client.GetAsync("https://plus.google.com/app/basic/share");
                     response.EnsureSuccessStatusCode();
 
                     responseBodyAsText = await response.Content.ReadAsStringAsync();
@@ -461,6 +464,7 @@ namespace Screen2GP
         private void Label4_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             client.pid = "";
+            client.uploading = false;
             DoubleAnimation myAnimation = new DoubleAnimation(470, 210, new Duration(new TimeSpan(0, 0, 0, 0, 300)));
             this.BeginAnimation(HeightProperty, myAnimation);
         }
@@ -507,6 +511,8 @@ namespace Screen2GP
         public httpclient()
         {
             this.handler.CookieContainer = this.cookies;
+            this.handler.UseCookies = true;
+            this.handler.UseDefaultCredentials = true;
             this.client = new HttpClient(this.handler);
             client.MaxResponseContentBufferSize = 256000;
             client.DefaultRequestHeaders.Add("user-agent",this.useragent );
