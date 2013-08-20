@@ -149,6 +149,7 @@ namespace Screen2GP
                     str2 = getBetween(str0, "value=\"", "\"");
                     if (str1 == "Email") str2 = user.email;
                     else if (str1 == "Passwd") str2 = user.password;
+                    else if (str1 == "aggregatedData") str2 = client.groupdata;
                     if (str1 != "editcircles") client.postAdd(str1, str2);
                 }
             }
@@ -363,7 +364,7 @@ namespace Screen2GP
                 else if (pointer == 2)
                 {
                     client.pointer = pointer;
-                    HttpResponseMessage response = await client.client.GetAsync("https://m.google.com/app/plus/?v=compose&group=m1c&hideloc=1");
+                    HttpResponseMessage response = await client.client.GetAsync("https://m.google.com/app/basic/share?hideloc=1");
                     //HttpResponseMessage response = await client.client.GetAsync("https://plus.google.com/app/basic/share");
                     response.EnsureSuccessStatusCode();
 
@@ -511,6 +512,12 @@ namespace Screen2GP
             }
             catch(Exception ex){}
         }
+
+        private void radio_Checked(object sender, RoutedEventArgs e)
+        {
+            if (radio1.IsChecked == true) client.group = 0;
+            else if (radio2.IsChecked == true) client.group = 1;
+        }
     }
 
     public class httpclient
@@ -524,7 +531,16 @@ namespace Screen2GP
         public String url;
         public String pid = "";
         public bool uploading = false;
-
+        public int group = 0;
+        public string groupdata
+        {
+            get {
+                if (this.group == 0) return "CgQIABIAEgYKAjAEEAAaOgoAEgAaLi8vc3NsLmdzdGF0aWMuY29tL20vYXBwL3BsdXMvcG9zdGluZy1waG90by5wbmciACgAMgAiCAoAEgAYACAA";
+                else if (this.group == 1) return "CgQIABIAEg0KAjABEAAaACIDR0FFGjoKABIAGi4vL3NzbC5nc3RhdGljLmNvbS9tL2FwcC9wbHVzL3Bvc3RpbmctcGhvdG8ucG5nIgAoADIAIggKABIAGAAgAA"; 
+                else return "";
+            }
+        }
+        
         public int pointer;
         public string status = "Starting...";
 

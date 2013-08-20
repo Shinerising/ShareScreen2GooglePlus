@@ -196,7 +196,7 @@ namespace Screen2GP
         private void label_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.IsEnabled = false;
-            ((MainWindow)Application.Current.Windows[1]).GoPrint(Canvas.GetLeft(box), Canvas.GetTop(box), box.Width, box.Height);
+            ((MainWindow)Application.Current.Windows[1]).GoPrint(Canvas.GetLeft(box)+8, Canvas.GetTop(box)+8, box.Width-16, box.Height-16);
             this.Hide();
         }
 

@@ -85,6 +85,10 @@
             </Image>
             <Button x:Name="button2" Content="Cancel" Style="{DynamicResource RoundCorner}" HorizontalAlignment="Left" Margin="150,0,0,20" Width="100" Click="Button2_Click" FontWeight="Bold" BorderBrush="#FFD4D4D4" Background="#FFFBFBFB" Height="40" VerticalAlignment="Bottom" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
             <Button x:Name="button1" Content="Share" HorizontalAlignment="Left" Margin="25,0,0,20" Width="100" Click="Button1_Click" Background="#FF77DC60" FontWeight="Bold" Foreground="White" BorderBrush="#FFD4D4D4" Style="{DynamicResource RoundCorner}" Height="40" VerticalAlignment="Bottom" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
+            <Border BorderBrush="#88FFFFFF" Background="#FF4285f4" BorderThickness="1" CornerRadius="17" HorizontalAlignment="Left" Width="110" Margin="270,0,0,22" Height="35" VerticalAlignment="Bottom"/>
+            <Border BorderBrush="#88FFFFFF" Background="#67ae3f" BorderThickness="1" CornerRadius="17" HorizontalAlignment="Left" Width="100" Margin="395,0,0,22" Height="35" VerticalAlignment="Bottom"/>
+            <RadioButton x:Name="radio1" Content="Your circles" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="283,0,0,32" FontFamily="/Screen2GP;component/Resources/#Roboto" Foreground="White" IsChecked="True" Checked="radio_Checked"/>
+            <RadioButton x:Name="radio2" Content="Public" HorizontalAlignment="Left" Margin="419,0,0,32" FontFamily="/Screen2GP;component/Resources/#Roboto" Foreground="White" Checked="radio_Checked" Height="15" VerticalAlignment="Bottom"/>
             <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label1_MouseDown"/>
             <Label Content="-" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label2_MouseDown"/>
             <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label3_MouseDown"/>
@@ -113,5 +117,5 @@
             <Label Content="Your User ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,130,0,0" Height="30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
             <Button x:Name="button3" Content="Apply" Style="{DynamicResource RoundCorner}" HorizontalAlignment="Right" Margin="0,0,25,20" Width="100" FontWeight="Bold" BorderBrush="#FFD4D4D4" Background="#FFFBFBFB" Height="40" VerticalAlignment="Bottom" FontFamily="/Screen2GP;component/Resources/#Roboto" Click="Button3_Click"/>
         </Grid>
-        </Grid>
+    </Grid>
 </Window>
