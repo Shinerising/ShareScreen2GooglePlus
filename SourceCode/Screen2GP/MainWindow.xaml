@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Screen2GP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Screen2GP" Height="210" Width="540" WindowStyle="None" Background="#00000000" Topmost="True" Foreground="#00000000" Grid.IsSharedSizeScope="True" AllowsTransparency="True" StateChanged="Window_StateChanged" ShowInTaskbar="False">
+        Title="Screen2GP" Height="210" Width="540" WindowStyle="None" Background="#00000000" Foreground="#00000000" Grid.IsSharedSizeScope="True" AllowsTransparency="True" ShowInTaskbar="False" Topmost="True">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="RoundCorner" TargetType="Button">
@@ -63,7 +63,7 @@
     <Grid x:Name="grid1" Margin="10,10,10,10" Background="WhiteSmoke" MouseDown="grid1_MouseDown">
         <Border BorderBrush="#33999999" BorderThickness="1">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="2" BlurRadius="5" Color="#FF969696" Opacity="0.8" Direction="270"/>
+                <DropShadowEffect ShadowDepth="2" BlurRadius="5" Color="#FF5D5D5D" Opacity="0.9" Direction="270"/>
             </Border.Effect>
         </Border>
         <Rectangle Fill="WhiteSmoke" Stroke="#33999999" Margin="0,0,0,0"></Rectangle>
@@ -74,7 +74,7 @@
                 </TextBox.Effect>
             </TextBox>
             <Grid Margin="25,130,25,80" >
-                <Image x:Name="imagebox1" HorizontalAlignment="Left" Height="260" Margin="0,0,0,0" VerticalAlignment="Top" Width="470"/>
+                <Image x:Name="imagebox1" Height="260" Margin="0,0,0,0" Width="470"/>
                 <Label x:Name="label1" Content="Uploading..." HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="260" Width="470" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#6F000000" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
                 <Label Content="X" VerticalAlignment="Bottom" Style="{DynamicResource LabelHover}" HorizontalAlignment="Right" Width="30" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFDDDDDD" FontWeight="ExtraBold" FontSize="20" MouseDown="Label4_MouseDown"/>
             </Grid>

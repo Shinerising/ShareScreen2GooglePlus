@@ -16,6 +16,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using System.Windows.Input;
 
 namespace Screen2GP
 {
@@ -29,6 +30,8 @@ namespace Screen2GP
         private delegate string ThreadDelegate();
 
         NotifyIcon notifyIcon = new NotifyIcon();
+        picbox picboxwindow = new picbox();
+
 
         public MainWindow()
         {
@@ -45,7 +48,10 @@ namespace Screen2GP
             textbox1.IsEnabled = false;
             button1.IsEnabled = false;
             button1.Content = "Logging...";
-            KeyboardHandler hotkey = new KeyboardHandler(this);
+            KeyboardHandler hotkey1 = new KeyboardHandler(this, 0x0002 | 0x0001, 0x47, 0x4869);
+            KeyboardHandler hotkey2 = new KeyboardHandler(this, 0x0002 | 0x0001, 0x48, 0x4870);
+            picboxwindow.IsEnabled = false;
+
         }
 
         private void InitnotifyIcon()
@@ -163,31 +169,34 @@ namespace Screen2GP
             }
         }
 
-        public void GoPrint()
+        public void GoPrint(double x, double y, double w, double h)
         {
-            if (client.uploading == false && user.email!="" && grid11.Visibility==Visibility.Visible )
+            if (client.uploading == false && user.email!="" && grid11.Visibility==Visibility.Visible && picboxwindow.IsEnabled == false)
             {
                 try
                 {
-                    PrintScreen();
+                    PrintScreen((int)x, (int)y, (int)w, (int)h);
                 }
                 catch (Exception ex)
                 {
                     label1.Content = "Upload failed";
                 }
-                if (this.Height == 210)
-                {
-                    DoubleAnimation myAnimation = new DoubleAnimation(210, 470, new Duration(new TimeSpan(0, 0, 0, 0, 300)));
-                    this.BeginAnimation(HeightProperty, myAnimation);
-                }
             }
         }
 
-        private void PrintScreen()
+        public void GoCapture()
         {
-            Bitmap printscreen = new Bitmap((int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight);
+            picboxwindow.IsEnabled = true;
+            picboxwindow.Show();
+        }
+
+        private void PrintScreen(int x, int y, int w, int h)
+        {
+            if (w < 0) w = (int)SystemParameters.PrimaryScreenWidth;
+            if (h < 0) h = (int)SystemParameters.PrimaryScreenHeight;
+            Bitmap printscreen = new Bitmap(w, h);
             Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image);
-            graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size);
+            graphics.CopyFromScreen(x, y, 0, 0, printscreen.Size);
             var fileStream = new FileStream("temp.png", FileMode.Create);
             printscreen.Save(fileStream, ImageFormat.Png);
             fileStream.Close();
@@ -201,10 +210,27 @@ namespace Screen2GP
             bi.EndInit();
             imagebox1.Source = bi;
 
+            if (w / h > 470d / 240)
+            {
+                imagebox1.Width = 470;
+                imagebox1.Height = 470d / w * h;
+            }
+            else
+            {
+                imagebox1.Height = 240;
+                imagebox1.Width = 240d / h * w;
+            }
+
             client.uploading = true;
             label1.Opacity = 1;
             button1.IsEnabled = false;
             label1.Content = "Uploading...";
+            if (this.Height == 210)
+            {
+                DoubleAnimation myAnimation = new DoubleAnimation(210, 470, new Duration(new TimeSpan(0, 0, 0, 0, 300)));
+                this.BeginAnimation(HeightProperty, myAnimation);
+            }
+
             Window_GoShow();
 
             ThreadDelegate backWorkDel = new ThreadDelegate(UploadPhoto);
@@ -426,6 +452,7 @@ namespace Screen2GP
         
         private void Label1_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            picboxwindow.Close();
             this.Close();
         }
 
@@ -442,6 +469,7 @@ namespace Screen2GP
         private void Window_GoShow()
         {
             this.Show();
+            this.Activate();
             DoubleAnimation animation = new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 200)));
             this.BeginAnimation(OpacityProperty, animation);
         }
@@ -550,7 +578,7 @@ namespace Screen2GP
     {
 
         public const int WM_HOTKEY = 0x0312;
-        public const int VIRTUALKEYCODE_FOR_CAPS_LOCK = 0x14;
+        private int action;
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -563,27 +591,35 @@ namespace Screen2GP
         private readonly Window _mainWindow;
         WindowInteropHelper _host;
 
-        public KeyboardHandler(Window mainWindow)
+        public KeyboardHandler(Window mainWindow, int fsModifiers, int vlc, int act)
         {
             _mainWindow = mainWindow;
             _host = new WindowInteropHelper(_mainWindow);
+            action = act;
 
-            SetupHotKey(_host.Handle);
+            SetupHotKey(_host.Handle, fsModifiers, vlc);
             ComponentDispatcher.ThreadPreprocessMessage += ComponentDispatcher_ThreadPreprocessMessage;
         }
 
         void ComponentDispatcher_ThreadPreprocessMessage(ref MSG msg, ref bool handled)
         {
-            if (msg.message == WM_HOTKEY)
+            if (msg.message == 0x0312)
             {
-                _mainWindow.Activate();
-                ((MainWindow)App.Current.Windows[0]).GoPrint();
+                if ((int)msg.wParam == 0x4869)
+                {
+                    _mainWindow.Activate();
+                    ((MainWindow)_mainWindow).GoPrint(0, 0, -1, -1);
+                }
+                else if((int)msg.wParam == 0x4870)
+                {
+                    ((MainWindow)_mainWindow).GoCapture();
+                }
             }
         }
 
-        private void SetupHotKey(IntPtr handle)
+        private void SetupHotKey(IntPtr handle, int fsModifiers, int vlc)
         {
-            RegisterHotKey(handle, GetType().GetHashCode(), 0x0002, 0x47);
+            RegisterHotKey(handle, action, fsModifiers, vlc);
         }
 
         public void Dispose()
