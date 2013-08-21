@@ -8,4 +8,6 @@ You can capture your screen and upload it with the HOTKEY: CTRL + ALT + G.
 
 If you only want to share part of your screen, try HOTKEY: CTRL + ALT + H. Then you can choose the part you need to share.
 
+You can configure the hotkey in setting panel, your hotkey settings will be applied after restart.
+
 Please notice this application won't be shown in Windows Taskbar but in Tasktray.
