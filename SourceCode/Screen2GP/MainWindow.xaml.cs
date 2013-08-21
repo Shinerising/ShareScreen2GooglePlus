@@ -32,11 +32,16 @@ namespace Screen2GP
         NotifyIcon notifyIcon = new NotifyIcon();
         picbox picboxwindow = new picbox();
 
+        KeyboardHandler hotkey1;
+        KeyboardHandler hotkey2;
+
 
         public MainWindow()
         {
             InitializeComponent();
+            InitSettings();
             InitnotifyIcon();
+            InitComboBox();
             //client.url = "https://plus.google.com/app/basic/login";
             client.url = "https://accounts.google.com/ServiceLogin";
             if (ReadInfo()) HttpRequest(0, false);
@@ -48,12 +53,22 @@ namespace Screen2GP
             textbox1.IsEnabled = false;
             button1.IsEnabled = false;
             button1.Content = "Logging...";
-            KeyboardHandler hotkey1 = new KeyboardHandler(this, 0x0002 | 0x0001, 0x47, 0x4869);
-            KeyboardHandler hotkey2 = new KeyboardHandler(this, 0x0002 | 0x0001, 0x48, 0x4870);
             picboxwindow.IsEnabled = false;
-
         }
 
+
+        private void InitSettings()
+        {
+            Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (ConfigurationManager.AppSettings["string1"] == null) cfa.AppSettings.Settings.Add("string1", "");
+            if (ConfigurationManager.AppSettings["string2"] == null) cfa.AppSettings.Settings.Add("string2", "");
+            if (ConfigurationManager.AppSettings["string3"] == null) cfa.AppSettings.Settings.Add("string3", "");
+            if (ConfigurationManager.AppSettings["string4"] == null) cfa.AppSettings.Settings.Add("string4", "0");
+            if (ConfigurationManager.AppSettings["string5"] == null) cfa.AppSettings.Settings.Add("string5", "16");
+            if (ConfigurationManager.AppSettings["string6"] == null) cfa.AppSettings.Settings.Add("string6", "0");
+            if (ConfigurationManager.AppSettings["string7"] == null) cfa.AppSettings.Settings.Add("string7", "17");
+            cfa.Save(ConfigurationSaveMode.Modified);
+        }
         private void InitnotifyIcon()
         {
             notifyIcon.BalloonTipText = "Hello, NotifyIcon!";
@@ -61,7 +76,6 @@ namespace Screen2GP
             notifyIcon.Icon = Resource1.gp;
             notifyIcon.Visible = true;
             notifyIcon.Click += notifyIcon_Click;
-            notifyIcon.MouseMove += notifyIcon_MouseMove;
         }
 
         private void notifyIcon_Click(object sender, EventArgs args)
@@ -69,8 +83,22 @@ namespace Screen2GP
             Window_GoShow();
         }
 
-        private void notifyIcon_MouseMove(object sender, EventArgs args)
+        private void InitComboBox()
         {
+            int i;
+            for (i = 0x30; i <= 0x39; i++)
+            {
+                cbox2.Items.Add(new ComboBoxItem().Content = Convert.ToChar(i));
+                cbox4.Items.Add(new ComboBoxItem().Content = Convert.ToChar(i));
+            }
+            for (i = 0x41; i <= 0x5A; i++)
+            {
+                cbox2.Items.Add(new ComboBoxItem().Content = Convert.ToChar(i));
+                cbox4.Items.Add(new ComboBoxItem().Content = Convert.ToChar(i));
+            }
+            cbox2.SelectedIndex = 0;
+            cbox4.SelectedIndex = 0;
+            
         }
 
         private void Showstatus(String status)
@@ -104,6 +132,10 @@ namespace Screen2GP
             cfa.AppSettings.Settings["string1"].Value = str1;
             cfa.AppSettings.Settings["string2"].Value = str2;
             cfa.AppSettings.Settings["string3"].Value = str3;
+            cfa.AppSettings.Settings["string4"].Value = cbox1.SelectedIndex.ToString();
+            cfa.AppSettings.Settings["string5"].Value = cbox2.SelectedIndex.ToString();
+            cfa.AppSettings.Settings["string6"].Value = cbox3.SelectedIndex.ToString();
+            cfa.AppSettings.Settings["string7"].Value = cbox4.SelectedIndex.ToString();
             cfa.Save(ConfigurationSaveMode.Modified);
         }
 
@@ -114,6 +146,38 @@ namespace Screen2GP
                 user.email = DecodeFrom64(ConfigurationManager.AppSettings["string1"]);
                 user.password = DecodeFrom64(ConfigurationManager.AppSettings["string2"]);
                 user.uid = DecodeFrom64(ConfigurationManager.AppSettings["string3"]);
+
+                int k1, k2;
+                int i = Convert.ToInt16(ConfigurationManager.AppSettings["string4"]);
+                int j = Convert.ToInt16(ConfigurationManager.AppSettings["string5"]);
+                switch (i)
+                {
+                    case 0: k1 = 0x0001 | 0x0002; break;
+                    case 1: k1 = 0x0002; break;
+                    case 2: k1 = 0x0001; break;
+                    default: k1 = 0x0001 | 0x0002; break;
+                }
+                if (j < 10) k2 = 0x30 + j;
+                else if (j >= 10) k2 = 0x41 + j - 10;
+                else k2 = 0x47;
+                cbox1.SelectedIndex = i;
+                cbox2.SelectedIndex = j;
+                hotkey1 = new KeyboardHandler(this, k1, k2, 0x4869);
+                i = Convert.ToInt16(ConfigurationManager.AppSettings["string6"]);
+                j = Convert.ToInt16(ConfigurationManager.AppSettings["string7"]);
+                switch (i)
+                {
+                    case 0: k1 = 0x0001 | 0x0002; break;
+                    case 1: k1 = 0x0002; break;
+                    case 2: k1 = 0x0001; break;
+                    default: k1 = 0x0001 | 0x0002; break;
+                }
+                if (j < 10) k2 = 0x30 + j;
+                else if (j >= 10) k2 = 0x41 + j - 10;
+                else k2 = 0x48;
+                cbox3.SelectedIndex = i;
+                cbox4.SelectedIndex = j;
+                hotkey2 = new KeyboardHandler(this, k1, k2, 0x4870);
             }
             catch (Exception ex) { }
             if (user.email == "")
@@ -502,6 +566,7 @@ namespace Screen2GP
                 button3.Content = "Saving...";
                 button3.IsEnabled = false;
                 SaveInfo(EncodeTo64(textbox2.Text), EncodeTo64(textbox3.Password), EncodeTo64(textbox4.Text));
+                MessageBoxResult msgbox = System.Windows.MessageBox.Show("Your settings have been saved. But hotkey settings will be applied after restart!", "ლ(╹◡╹ლ)", MessageBoxButton.OK);
                 button3.Content = "Apply";
                 button3.IsEnabled = true;
                 BeginFade();

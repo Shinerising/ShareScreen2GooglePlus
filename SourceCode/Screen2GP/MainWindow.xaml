@@ -94,7 +94,7 @@
             <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label3_MouseDown"/>
         </Grid>
         <Grid x:Name="grid12" Visibility="Hidden">
-            <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="30" Margin="160,40,0,0" VerticalAlignment="Top" Width="200" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
+            <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="30" Margin="140,40,0,0" VerticalAlignment="Top" Width="170" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
                 <TextBox.Effect>
                     <DropShadowEffect ShadowDepth="1" Color="#FFCFCFCF" Opacity=".4" RenderingBias="Performance" BlurRadius="5" />
                 </TextBox.Effect>
@@ -102,20 +102,36 @@
             <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label1_MouseDown"/>
             <Label Content="-" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label2_MouseDown"/>
             <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label3_MouseDown"/>
-            <PasswordBox x:Name="textbox3" HorizontalAlignment="Left" Height="30" Margin="160,85,0,0" VerticalAlignment="Top" Width="200" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
+            <PasswordBox x:Name="textbox3" HorizontalAlignment="Left" Height="30" Margin="139,85,0,0" VerticalAlignment="Top" Width="171" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
                 <PasswordBox.Effect>
                     <DropShadowEffect ShadowDepth="1" Color="#FFCFCFCF" Opacity=".4" RenderingBias="Performance" BlurRadius="5" />
                 </PasswordBox.Effect>
             </PasswordBox>
-            <TextBox x:Name="textbox4" HorizontalAlignment="Left" Height="30" Margin="160,130,0,0" VerticalAlignment="Top" Width="200" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
+            <TextBox x:Name="textbox4" HorizontalAlignment="Left" Height="30" Margin="139,130,0,0" VerticalAlignment="Top" Width="171" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
                 <TextBox.Effect>
                     <DropShadowEffect ShadowDepth="1" Color="#FFCFCFCF" Opacity=".4" RenderingBias="Performance" BlurRadius="5" />
                 </TextBox.Effect>
             </TextBox>
-            <Label Content="Your Email:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0" Height="30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
-            <Label Content="Your Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,85,0,0" Height="30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
-            <Label Content="Your User ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,130,0,0" Height="30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
+            <Label Content="Your Email:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,40,0,0" Height="30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
+            <Label Content="Your Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,85,0,0" Height="30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
+            <Label Content="Your User ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,130,0,0" Height="30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
             <Button x:Name="button3" Content="Apply" Style="{DynamicResource RoundCorner}" HorizontalAlignment="Right" Margin="0,0,25,20" Width="100" FontWeight="Bold" BorderBrush="#FFD4D4D4" Background="#FFFBFBFB" Height="40" VerticalAlignment="Bottom" FontFamily="/Screen2GP;component/Resources/#Roboto" Click="Button3_Click"/>
+            <ComboBox x:Name="cbox2" HorizontalAlignment="Left" Margin="437,50,0,0" VerticalAlignment="Top" Width="36"/>
+            <ComboBox x:Name="cbox1" HorizontalAlignment="Left" Margin="340,50,0,0" VerticalAlignment="Top" Width="70" BorderBrush="Black" SelectedIndex="0">
+                <ComboBoxItem Content="Ctrl+Alt"/>
+                <ComboBoxItem Content="Ctrl"/>
+                <ComboBoxItem Content="Alt"/>
+            </ComboBox>
+            <Label Content="Hotkey (Whole Screen)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="335,23,0,0" Height="30" Width="144" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
+            <Label Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="415,48,0,0" Height="22" Width="17" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" Padding="0" FontSize="14"/>
+            <ComboBox x:Name="cbox4" HorizontalAlignment="Left" Margin="437,97,0,0" VerticalAlignment="Top" Width="36"/>
+            <ComboBox x:Name="cbox3" HorizontalAlignment="Left" Margin="340,97,0,0" VerticalAlignment="Top" Width="70" SelectedIndex="0">
+                <ComboBoxItem Content="Ctrl+Alt"/>
+                <ComboBoxItem Content="Ctrl"/>
+                <ComboBoxItem Content="Alt"/>
+            </ComboBox>
+            <Label Content="Hotkey (Screen Region)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="335,70,0,0" Height="30" Width="144" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
+            <Label Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="415,95,0,0" Height="22" Width="17" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" Padding="0" FontSize="14"/>
         </Grid>
-    </Grid>
+       </Grid>
 </Window>
