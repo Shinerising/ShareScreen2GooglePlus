@@ -16,7 +16,6 @@ using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Windows.Input;
 
 namespace Screen2GP
 {
@@ -69,6 +68,7 @@ namespace Screen2GP
             if (ConfigurationManager.AppSettings["string7"] == null) cfa.AppSettings.Settings.Add("string7", "17");
             cfa.Save(ConfigurationSaveMode.Modified);
         }
+        
         private void InitnotifyIcon()
         {
             notifyIcon.BalloonTipText = "Hello, NotifyIcon!";

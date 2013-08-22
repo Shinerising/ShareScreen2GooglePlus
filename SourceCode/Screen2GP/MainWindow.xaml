@@ -8,7 +8,8 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Padding" Value="1"/>
-                <Setter Property="FontFamily" Value="Resources/Roboto-Regular.ttf"/>
+                <Setter Property="FontFamily" Value="/Screen2GP;component/Resources/#Roboto"/>
+                <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
@@ -51,12 +52,26 @@
                 </Setter>
             </Style>
             <Style x:Key="LabelHover" TargetType="Label">
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True" >
-                        <Setter Property="BorderBrush" Value="#66222222"/>
-                        <Setter Property="BorderThickness" Value="2"/>
-                    </Trigger>
-                </Style.Triggers>
+                <Setter Property="Foreground" Value="#FFEEEEEE"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontFamily" Value="/Screen2GP;component/Resources/#Roboto" />
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Label">
+                            <Grid x:Name="grid">
+                                <Border x:Name="border" CornerRadius="0" BorderBrush="#FFD4D4D4" BorderThickness="0" Background="#AACCCCCC" Opacity="1">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontWeight="Bold"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True" >
+                                    <Setter Property="Background" TargetName="border" Value="#AA888888"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -70,46 +85,48 @@
         <Grid x:Name="grid11">
             <TextBox x:Name="textbox1" HorizontalAlignment="Left" Height="75" Margin="125,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" TextChanged="textbox1_TextChanged" BorderBrush="#FFD4D4D4" AcceptsReturn="True" AcceptsTab="True" Padding="10,5" FontSize="14" VerticalScrollBarVisibility="Auto" FontFamily="/Screen2GP;component/Resources/#Roboto">
                 <TextBox.Effect>
-                    <DropShadowEffect ShadowDepth="1" Color="#FFCFCFCF" Opacity="0.4" RenderingBias="Performance" BlurRadius="5" />
+                    <DropShadowEffect ShadowDepth="0" Opacity="1" RenderingBias="Performance" BlurRadius="5" Color="#FFF1F1F1" Direction="0" />
                 </TextBox.Effect>
             </TextBox>
             <Grid Margin="25,130,25,80" >
                 <Image x:Name="imagebox1" Height="260" Margin="0,0,0,0" Width="470"/>
                 <Label x:Name="label1" Content="Uploading..." HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="260" Width="470" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#6F000000" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
-                <Label Content="X" VerticalAlignment="Bottom" Style="{DynamicResource LabelHover}" HorizontalAlignment="Right" Width="30" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFDDDDDD" FontWeight="ExtraBold" FontSize="20" MouseDown="Label4_MouseDown"/>
+                <Label Content="X" VerticalAlignment="Bottom" Style="{DynamicResource LabelHover}" HorizontalAlignment="Right" Width="30" Height="30" FontSize="20" MouseDown="Label4_MouseDown"/>
             </Grid>
-            <Image x:Name="image2" HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75" Margin="25,30,0,0" >
-                <Image.Effect>
-                    <DropShadowEffect ShadowDepth="1" Color="#FFCFCFCF" Opacity=".4" RenderingBias="Performance" BlurRadius="5" />
-                </Image.Effect>
-            </Image>
-            <Button x:Name="button2" Content="Cancel" Style="{DynamicResource RoundCorner}" HorizontalAlignment="Left" Margin="150,0,0,20" Width="100" Click="Button2_Click" FontWeight="Bold" BorderBrush="#FFD4D4D4" Background="#FFFBFBFB" Height="40" VerticalAlignment="Bottom" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
-            <Button x:Name="button1" Content="Share" HorizontalAlignment="Left" Margin="25,0,0,20" Width="100" Click="Button1_Click" Background="#FF77DC60" FontWeight="Bold" Foreground="White" BorderBrush="#FFD4D4D4" Style="{DynamicResource RoundCorner}" Height="40" VerticalAlignment="Bottom" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
+            <Border x:Name="mask" Background="White" BorderBrush="#FFD4D4D4" BorderThickness="1" CornerRadius="37.5" HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75" Margin="25,30,0,0"/>
+            <StackPanel>
+                <Image x:Name="image2" HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75" Margin="25,30,0,0"/>
+                <StackPanel.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=mask}" />
+                </StackPanel.OpacityMask>
+            </StackPanel>
+            <Button x:Name="button2" Content="Cancel" Style="{DynamicResource RoundCorner}" HorizontalAlignment="Left" Margin="150,0,0,20" Width="100" Click="Button2_Click" FontWeight="Bold" BorderBrush="#FFD4D4D4" Background="#FFFBFBFB" Height="40" VerticalAlignment="Bottom"/>
+            <Button x:Name="button1" Content="Share" HorizontalAlignment="Left" Margin="25,0,0,20" Width="100" Click="Button1_Click" Background="#FF77DC60" FontWeight="Bold" Foreground="White" BorderBrush="#FFD4D4D4" Style="{DynamicResource RoundCorner}" Height="40" VerticalAlignment="Bottom"/>
             <Border BorderBrush="#88FFFFFF" Background="#FF4285f4" BorderThickness="1" CornerRadius="17" HorizontalAlignment="Left" Width="110" Margin="270,0,0,22" Height="35" VerticalAlignment="Bottom"/>
             <Border BorderBrush="#88FFFFFF" Background="#67ae3f" BorderThickness="1" CornerRadius="17" HorizontalAlignment="Left" Width="100" Margin="395,0,0,22" Height="35" VerticalAlignment="Bottom"/>
             <RadioButton x:Name="radio1" Content="Your circles" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="283,0,0,32" FontFamily="/Screen2GP;component/Resources/#Roboto" Foreground="White" IsChecked="True" Checked="radio_Checked"/>
             <RadioButton x:Name="radio2" Content="Public" HorizontalAlignment="Left" Margin="419,0,0,32" FontFamily="/Screen2GP;component/Resources/#Roboto" Foreground="White" Checked="radio_Checked" Height="15" VerticalAlignment="Bottom"/>
-            <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label1_MouseDown"/>
-            <Label Content="-" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label2_MouseDown"/>
-            <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label3_MouseDown"/>
-        </Grid>
+            <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label1_MouseDown"/>
+            <Label Content="-" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label2_MouseDown"/>
+            <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label3_MouseDown"/>
+            </Grid>
         <Grid x:Name="grid12" Visibility="Hidden">
             <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="30" Margin="140,40,0,0" VerticalAlignment="Top" Width="170" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
                 <TextBox.Effect>
-                    <DropShadowEffect ShadowDepth="1" Color="#FFCFCFCF" Opacity=".4" RenderingBias="Performance" BlurRadius="5" />
+                    <DropShadowEffect ShadowDepth="0" Opacity="1" RenderingBias="Performance" BlurRadius="5" Color="#FFF1F1F1" Direction="0" />
                 </TextBox.Effect>
             </TextBox>
-            <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label1_MouseDown"/>
-            <Label Content="-" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label2_MouseDown"/>
-            <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Background="#55FFFFFF" Foreground="#FFC3C3C3" FontWeight="ExtraBold" MouseDown="Label3_MouseDown"/>
+            <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label1_MouseDown"/>
+            <Label Content="-" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label2_MouseDown"/>
+            <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label3_MouseDown"/>
             <PasswordBox x:Name="textbox3" HorizontalAlignment="Left" Height="30" Margin="139,85,0,0" VerticalAlignment="Top" Width="171" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
                 <PasswordBox.Effect>
-                    <DropShadowEffect ShadowDepth="1" Color="#FFCFCFCF" Opacity=".4" RenderingBias="Performance" BlurRadius="5" />
+                    <DropShadowEffect ShadowDepth="0" Opacity="1" RenderingBias="Performance" BlurRadius="5" Color="#FFF1F1F1" Direction="0" />
                 </PasswordBox.Effect>
             </PasswordBox>
             <TextBox x:Name="textbox4" HorizontalAlignment="Left" Height="30" Margin="139,130,0,0" VerticalAlignment="Top" Width="171" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
                 <TextBox.Effect>
-                    <DropShadowEffect ShadowDepth="1" Color="#FFCFCFCF" Opacity=".4" RenderingBias="Performance" BlurRadius="5" />
+                    <DropShadowEffect ShadowDepth="0" Opacity="1" RenderingBias="Performance" BlurRadius="5" Color="#FFF1F1F1" Direction="0" />
                 </TextBox.Effect>
             </TextBox>
             <Label Content="Your Email:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,40,0,0" Height="30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto"/>
