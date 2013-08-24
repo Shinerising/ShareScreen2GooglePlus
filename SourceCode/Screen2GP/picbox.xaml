@@ -4,10 +4,10 @@
         Title="PicBox" Height="300" Width="300" Topmost="True" Background="#00000000" WindowStyle="None" AllowsTransparency="True" MinHeight="20" MinWidth="20" ShowInTaskbar="False">
     <Canvas x:Name="canvas" Margin="0" Background="#01000000" MouseMove="box_MouseMove" MouseUp="box_MouseUp" MouseDown="box_MouseDown">
         <Rectangle x:Name="box" Fill="#01000000" Stroke="#AA000000" StrokeThickness="6" HorizontalAlignment="Left" Width="260" Height="260" VerticalAlignment="Top" Canvas.Left="30" Canvas.Top="30"/>
-        <Rectangle x:Name="Rec1" Fill="#33000000" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Top" Canvas.Left="0" Canvas.Top="280" MouseDown="Rec_MouseDown"></Rectangle>
-        <Rectangle x:Name="Rec2" Fill="#33000000" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Top" Canvas.Left="0" Canvas.Top="0" MouseDown="Rec_MouseDown"></Rectangle>
-        <Rectangle x:Name="Rec3" Fill="#33000000" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Top" Canvas.Left="280" Canvas.Top="280" MouseDown="Rec_MouseDown"></Rectangle>
-        <Rectangle x:Name="Rec4" Fill="#33000000" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Top" Canvas.Left="280" Canvas.Top="0" MouseDown="Rec_MouseDown"></Rectangle>
+        <Rectangle x:Name="Rec1" Fill="#66000000" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Top" Canvas.Left="0" Canvas.Top="280" MouseDown="Rec_MouseDown"/>
+        <Rectangle x:Name="Rec2" Fill="#66000000" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Top" Canvas.Left="0" Canvas.Top="0" MouseDown="Rec_MouseDown"/>
+        <Rectangle x:Name="Rec3" Fill="#66000000" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Top" Canvas.Left="280" Canvas.Top="280" MouseDown="Rec_MouseDown"/>
+        <Rectangle x:Name="Rec4" Fill="#66000000" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Top" Canvas.Left="280" Canvas.Top="0" MouseDown="Rec_MouseDown"/>
         <Label x:Name="label1" Content="UPLOAD" HorizontalAlignment="Left" VerticalAlignment="Top" MouseDown="label_MouseDown" Canvas.Left="224" Canvas.Top="239" Width="60" Height="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="#66FFFFFF" BorderThickness="2" Background="#88333333" Padding="0" Foreground="White" Cursor="Hand"/>
     </Canvas>
 </Window>

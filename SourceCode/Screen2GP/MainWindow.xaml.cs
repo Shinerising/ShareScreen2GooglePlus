@@ -41,6 +41,7 @@ namespace Screen2GP
             InitSettings();
             InitnotifyIcon();
             InitComboBox();
+            this.Hide();
             //client.url = "https://plus.google.com/app/basic/login";
             client.url = "https://accounts.google.com/ServiceLogin";
             if (ReadInfo()) HttpRequest(0, false);
@@ -75,12 +76,28 @@ namespace Screen2GP
             notifyIcon.Text = "Quick Share to Google+";
             notifyIcon.Icon = Resource1.gp;
             notifyIcon.Visible = true;
-            notifyIcon.Click += notifyIcon_Click;
+            notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_Click);
+            ContextMenuStrip menu = new ContextMenuStrip();
+            ToolStripMenuItem item = new ToolStripMenuItem();
+            item.Text = "Close me";
+            item.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            menu.Items.Add(item);
+            notifyIcon.ContextMenuStrip = menu;
         }
 
-        private void notifyIcon_Click(object sender, EventArgs args)
+        private void notifyIcon_Click(object sender, MouseEventArgs args)
         {
-            Window_GoShow();
+            if (args.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                if (this.Visibility == Visibility.Visible) Window_GoHide();
+                else Window_GoShow();
+            }
+        }
+
+        private void toolStripMenuItem2_Click(Object sender, EventArgs e)
+        {
+            picboxwindow.Close();
+            this.Close();
         }
 
         private void InitComboBox()
@@ -262,7 +279,7 @@ namespace Screen2GP
             Bitmap printscreen = new Bitmap(w, h);
             Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image);
             graphics.CopyFromScreen(x, y, 0, 0, printscreen.Size);
-            var fileStream = new FileStream("temp.png", FileMode.Create);
+            var fileStream = new FileStream("screenshot.png", FileMode.Create);
             printscreen.Save(fileStream, ImageFormat.Png);
             fileStream.Close();
 
@@ -309,7 +326,7 @@ namespace Screen2GP
             {
                 PicasaService service = new PicasaService("picasaupload");
                 service.setUserCredentials(user.email, user.password);
-                var file = "temp.png";
+                var file = "screenshot.png";
                 var fileStream = new FileStream(file, FileMode.Open);
                 PicasaEntry entry = (PicasaEntry)service.Insert(new Uri("https://picasaweb.google.com/data/feed/api/user/default/albumid/default"), fileStream, "image/jpeg", file);
                 fileStream.Close();
@@ -378,18 +395,12 @@ namespace Screen2GP
             if (retry) await Task.Delay(5000);
             if (pointer == 3)
             {
-                button1.Content = "Shared!";
-                await Task.Delay(1000);
+                Showstatus("Your post has been shared!");
                 button1.Content = "Share";
                 button1.IsEnabled = true;
                 client.pid = "";
                 textbox1.Text = "";
-                if (this.Height == 470)
-                {
-                    DoubleAnimation myAnimation = new DoubleAnimation(470, 210, new Duration(new TimeSpan(0, 0, 0, 0, 300)));
-                    this.BeginAnimation(HeightProperty, myAnimation);
-                }
-                Window_GoHind();
+                if (this.Height == 470) this.Height = 210;
             }
             try
             {
@@ -424,9 +435,14 @@ namespace Screen2GP
                     Showstatus("Log in Succeed!");
                     ShowAvatar();
 
+                    if (user.post != "") HttpRequest(2, false);
                 }
                 else if (pointer == 2)
                 {
+                    button1.IsEnabled = false;
+                    button1.Content = "Sharing";
+                    Showstatus("Sharing you post.");
+
                     client.pointer = pointer;
                     HttpResponseMessage response = await client.client.GetAsync("https://m.google.com/app/basic/share?hideloc=1");
                     //HttpResponseMessage response = await client.client.GetAsync("https://plus.google.com/app/basic/share");
@@ -458,14 +474,7 @@ namespace Screen2GP
             {
                 Showstatus("Connect error!");
                 //label1.Content = hre.ToString();
-                if (client.pointer == 2)
-                {
-                    HttpRequest(0, false);
-                }
-                else
-                {
-                    HttpRequest(0, true);
-                }
+                HttpRequest(0, true);
             }
             catch (Exception ex)
             {
@@ -476,13 +485,12 @@ namespace Screen2GP
 
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
-            Window_GoHind();
+            Window_GoHide();
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            button1.IsEnabled = false;
-            button1.Content = "Sharing";
+            Window_GoHide();
             HttpRequest(2, false);
         }
 
@@ -517,16 +525,10 @@ namespace Screen2GP
         
         private void Label1_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            picboxwindow.Close();
-            this.Close();
+            Window_GoHide();
         }
 
         private void Label2_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Window_GoHind();
-        }
-
-        private void Label3_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             BeginFade();
         }
@@ -535,11 +537,13 @@ namespace Screen2GP
         {
             this.Show();
             this.Activate();
+            
             DoubleAnimation animation = new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 200)));
             this.BeginAnimation(OpacityProperty, animation);
+            
         }
 
-        private void Window_GoHind()
+        private void Window_GoHide()
         {
             DoubleAnimation animation = new DoubleAnimation(1, 0, new Duration(new TimeSpan(0, 0, 0, 0, 200)));
             animation.Completed += Window_Hide;

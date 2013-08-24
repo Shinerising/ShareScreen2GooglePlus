@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>gpnewicon.ico</ApplicationIcon>
+    <ApplicationIcon>appicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.GData.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
@@ -131,16 +131,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="bin\Debug\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\gpnewicon.ico" />
+    <None Include="Resources\appicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="gpnewicon.ico" />
+    <Resource Include="appicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

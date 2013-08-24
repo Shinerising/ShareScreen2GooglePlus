@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Screen2GP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Screen2GP" Height="210" Width="540" WindowStyle="None" Background="#00000000" Foreground="#00000000" Grid.IsSharedSizeScope="True" AllowsTransparency="True" ShowInTaskbar="False" Topmost="True">
+        Title="Screen2GP" Height="210" Width="540" WindowStyle="None" Background="#00000000" Foreground="#00000000" Grid.IsSharedSizeScope="True" AllowsTransparency="True" ShowInTaskbar="False" Topmost="True" Visibility="Visible">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="RoundCorner" TargetType="Button">
@@ -76,12 +76,12 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid x:Name="grid1" Margin="10,10,10,10" Background="WhiteSmoke" MouseDown="grid1_MouseDown">
-        <Border BorderBrush="#33999999" BorderThickness="1">
+        <Border x:Name="grid1border" BorderBrush="#33999999" BorderThickness="5">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="2" BlurRadius="5" Color="#FF5D5D5D" Opacity="0.9" Direction="270"/>
             </Border.Effect>
         </Border>
-        <Rectangle Fill="WhiteSmoke" Stroke="#33999999" Margin="0,0,0,0"></Rectangle>
+        <Rectangle Fill="WhiteSmoke" Stroke="#33999999" Margin="0,0,0,0"/>
         <Grid x:Name="grid11">
             <TextBox x:Name="textbox1" HorizontalAlignment="Left" Height="75" Margin="125,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" TextChanged="textbox1_TextChanged" BorderBrush="#FFD4D4D4" AcceptsReturn="True" AcceptsTab="True" Padding="10,5" FontSize="14" VerticalScrollBarVisibility="Auto" FontFamily="/Screen2GP;component/Resources/#Roboto">
                 <TextBox.Effect>
@@ -102,13 +102,12 @@
             </StackPanel>
             <Button x:Name="button2" Content="Cancel" Style="{DynamicResource RoundCorner}" HorizontalAlignment="Left" Margin="150,0,0,20" Width="100" Click="Button2_Click" FontWeight="Bold" BorderBrush="#FFD4D4D4" Background="#FFFBFBFB" Height="40" VerticalAlignment="Bottom"/>
             <Button x:Name="button1" Content="Share" HorizontalAlignment="Left" Margin="25,0,0,20" Width="100" Click="Button1_Click" Background="#FF77DC60" FontWeight="Bold" Foreground="White" BorderBrush="#FFD4D4D4" Style="{DynamicResource RoundCorner}" Height="40" VerticalAlignment="Bottom"/>
-            <Border BorderBrush="#88FFFFFF" Background="#FF4285f4" BorderThickness="1" CornerRadius="17" HorizontalAlignment="Left" Width="110" Margin="270,0,0,22" Height="35" VerticalAlignment="Bottom"/>
-            <Border BorderBrush="#88FFFFFF" Background="#67ae3f" BorderThickness="1" CornerRadius="17" HorizontalAlignment="Left" Width="100" Margin="395,0,0,22" Height="35" VerticalAlignment="Bottom"/>
+            <Border BorderBrush="#44DDDDDD" Background="#FF4285f4" BorderThickness="1" CornerRadius="17" HorizontalAlignment="Left" Width="110" Margin="270,0,0,22" Height="35" VerticalAlignment="Bottom"/>
+            <Border BorderBrush="#44DDDDDD" Background="#67ae3f" BorderThickness="1" CornerRadius="17" HorizontalAlignment="Left" Width="100" Margin="395,0,0,22" Height="35" VerticalAlignment="Bottom"/>
             <RadioButton x:Name="radio1" Content="Your circles" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="283,0,0,32" FontFamily="/Screen2GP;component/Resources/#Roboto" Foreground="White" IsChecked="True" Checked="radio_Checked"/>
             <RadioButton x:Name="radio2" Content="Public" HorizontalAlignment="Left" Margin="419,0,0,32" FontFamily="/Screen2GP;component/Resources/#Roboto" Foreground="White" Checked="radio_Checked" Height="15" VerticalAlignment="Bottom"/>
             <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label1_MouseDown"/>
-            <Label Content="-" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label2_MouseDown"/>
-            <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label3_MouseDown"/>
+            <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label2_MouseDown"/>
             </Grid>
         <Grid x:Name="grid12" Visibility="Hidden">
             <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="30" Margin="140,40,0,0" VerticalAlignment="Top" Width="170" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
@@ -117,8 +116,7 @@
                 </TextBox.Effect>
             </TextBox>
             <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label1_MouseDown"/>
-            <Label Content="-" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label2_MouseDown"/>
-            <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,95,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label3_MouseDown"/>
+            <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label2_MouseDown"/>
             <PasswordBox x:Name="textbox3" HorizontalAlignment="Left" Height="30" Margin="139,85,0,0" VerticalAlignment="Top" Width="171" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
                 <PasswordBox.Effect>
                     <DropShadowEffect ShadowDepth="0" Opacity="1" RenderingBias="Performance" BlurRadius="5" Color="#FFF1F1F1" Direction="0" />

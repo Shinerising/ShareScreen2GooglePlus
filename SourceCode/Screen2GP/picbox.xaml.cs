@@ -203,6 +203,8 @@ namespace Screen2GP
         private void Rec_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.IsEnabled = false;
+            mDown = false;
+            ms = -1;
             this.Hide();
         }
     }
