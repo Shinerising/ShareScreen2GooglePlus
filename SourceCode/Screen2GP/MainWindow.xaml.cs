@@ -400,7 +400,7 @@ namespace Screen2GP
                 button1.IsEnabled = true;
                 client.pid = "";
                 textbox1.Text = "";
-                if (this.Height == 470) this.Height = 210;
+                this.Height = 210;
             }
             try
             {
@@ -441,7 +441,6 @@ namespace Screen2GP
                 {
                     button1.IsEnabled = false;
                     button1.Content = "Sharing";
-                    Showstatus("Sharing you post.");
 
                     client.pointer = pointer;
                     HttpResponseMessage response = await client.client.GetAsync("https://m.google.com/app/basic/share?hideloc=1");
