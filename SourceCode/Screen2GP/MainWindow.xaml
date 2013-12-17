@@ -108,7 +108,7 @@
             <RadioButton x:Name="radio2" Content="Public" HorizontalAlignment="Left" Margin="419,0,0,32" FontFamily="/Screen2GP;component/Resources/#Roboto" Foreground="White" Checked="radio_Checked" Height="15" VerticalAlignment="Bottom"/>
             <Label Content="X" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,25,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label1_MouseDown"/>
             <Label Content="*" VerticalAlignment="Top" Style="{DynamicResource LabelHover}" Margin="0,1,60,0" HorizontalAlignment="Right" Width="20" Height="15" MouseDown="Label2_MouseDown"/>
-            </Grid>
+        </Grid>
         <Grid x:Name="grid12" Visibility="Hidden">
             <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="30" Margin="140,40,0,0" VerticalAlignment="Top" Width="170" BorderBrush="#FFD4D4D4" Padding="2,1" FontSize="12" VerticalContentAlignment="Center" FontFamily="/Screen2GP;component/Resources/#Roboto" >
                 <TextBox.Effect>
